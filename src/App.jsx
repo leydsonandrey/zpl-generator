@@ -5,7 +5,7 @@ export default function GeradorZPL() {
   const [nome, setNome] = useState("");
   const [data, setData] = useState("");
   const [quantidade, setQuantidade] = useState(1);
-  const [tipoEntrega, setTipoEntrega] = useState("none"); // ifood | click | delivery
+  const [tipoEntrega, setTipoEntrega] = useState("ifood"); // ifood | click | delivery
   const [numeroIfood, setNumeroIfood] = useState("");
   const [resultado, setResultado] = useState("");
 

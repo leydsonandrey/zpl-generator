@@ -75,7 +75,6 @@ ${blocoEntrega}
       <input
         className="w-full border rounded-lg p-2 mb-4"
         value={pedido}
-        maxLength={9}
         onChange={(e) => setPedido(e.target.value)}
       />
 
@@ -91,7 +90,6 @@ ${blocoEntrega}
       <input
         className="w-full border rounded-lg p-2 mb-4"
         value={data}
-        maxLength={10}
         onChange={(e) => setData(e.target.value)}
       />
 

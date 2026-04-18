@@ -17,7 +17,7 @@ export default function Home() {
   const [tab, setTab] = useState("zpl");
   return (
     <div className="w-full">
-      <div className="w-full h-14 flex justify-center items-center gap-2 bg-blue-500 shadow">
+      <div className="w-full h-14 flex justify-center items-center gap-2 bg-blue-500 shadow-lg">
         <Button active={tab === "zpl"} onClick={() => setTab("zpl")}>
           Gerador ZPL
         </Button>

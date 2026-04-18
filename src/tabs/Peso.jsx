@@ -9,7 +9,7 @@ export default function Peso() {
 
   return (
     <Layout title="Gerador de Peso">
-      <div className="flex flex-row gap-4">
+      <div className="flex flex-row justify-between gap-2">
         <div className="w-full">
           <label className="font-semibold">Código:</label>
           <input

@@ -1,11 +1,12 @@
 import { useState } from "react";
+import Layout from "../Layout";
 
 export default function GeradorZPL() {
   const [pedido, setPedido] = useState("");
   const [nome, setNome] = useState("");
   const [data, setData] = useState("");
   const [quantidade, setQuantidade] = useState(1);
-  const [tipoEntrega, setTipoEntrega] = useState("ifood"); // ifood | click | delivery
+  const [tipoEntrega, setTipoEntrega] = useState("ifood");
   const [numeroIfood, setNumeroIfood] = useState("");
   const [resultado, setResultado] = useState("");
 
@@ -66,15 +67,12 @@ ${blocoEntrega}
   };
 
   return (
-    <div className="max-w-xl mx-auto bg-white p-6 mt-6 rounded-2xl shadow">
-      <h2 className="text-center text-2xl font-bold mb-6">
-        Gerador de Etiquetas ZPL
-      </h2>
-
+    <Layout title="Gerador de Etiquetas ZPL">
       <label className="font-semibold">Pedido:</label>
       <input
         className="w-full border rounded-lg p-2 mb-4"
         value={pedido}
+        maxLength={26}
         onChange={(e) => setPedido(e.target.value)}
       />
 
@@ -90,28 +88,36 @@ ${blocoEntrega}
       <input
         className="w-full border rounded-lg p-2 mb-4"
         value={data}
+        maxLength={26}
         onChange={(e) => setData(e.target.value)}
       />
 
-      <label className="font-semibold">Quantidade de etiquetas:</label>
-      <input
-        type="number"
-        min={1}
-        className="w-full border rounded-lg p-2 mb-4"
-        value={quantidade}
-        onChange={(e) => setQuantidade(parseInt(e.target.value))}
-      />
-
-      <label className="font-semibold">Tipo de entrega:</label>
-      <select
-        className="w-full border rounded-lg p-2 mb-4"
-        value={tipoEntrega}
-        onChange={(e) => setTipoEntrega(e.target.value)}
-      >
-        <option value="ifood">iFood</option>
-        <option value="click">Click e Retire</option>
-        <option value="delivery">Delivery</option>
-      </select>
+      <div className="flex flex-row justify-baseline gap-4">
+        <div className="w-full">
+          <label className="font-semibold">&#8470; de etiquetas:</label>
+          <input
+            type="number"
+            min={1}
+            max={99}
+            maxLength={3}
+            className="w-full border rounded-lg p-2 mb-4"
+            value={quantidade}
+            onChange={(e) => setQuantidade(parseInt(e.target.value))}
+          />
+        </div>
+        <div className="w-full">
+          <label className="font-semibold">Tipo de entrega:</label>
+          <select
+            className="w-full border rounded-lg p-2 mb-4"
+            value={tipoEntrega}
+            onChange={(e) => setTipoEntrega(e.target.value)}
+          >
+            <option value="ifood">iFood</option>
+            <option value="click">Click e Retire</option>
+            <option value="delivery">Delivery</option>
+          </select>
+        </div>
+      </div>
 
       {tipoEntrega === "ifood" && (
         <div className="animate-fadeIn">
@@ -127,7 +133,7 @@ ${blocoEntrega}
 
       <button
         onClick={gerarEAbrir}
-        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold p-3 rounded-lg mb-4"
+        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold p-3 rounded-lg mb-4 hover:cursor-pointer"
       >
         Gerar
       </button>
@@ -138,6 +144,6 @@ ${blocoEntrega}
         className="w-full h-64 border rounded-lg p-3 font-mono"
         value={resultado}
       />
-    </div>
+    </Layout>
   );
 }

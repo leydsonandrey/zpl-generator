@@ -35,7 +35,7 @@ export default function Peso() {
       </p>
       {codigo && peso ? (
         <QRCodeSVG
-          className="w-full mt-4"
+          className="w-full size-44 mt-4"
           value={`20${codigo}000000000${peso}`}
         />
       ) : (

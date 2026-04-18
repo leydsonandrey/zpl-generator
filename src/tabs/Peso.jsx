@@ -34,10 +34,13 @@ export default function Peso() {
         Obs. 2: Peso abaixo de 1kg precisa começar com 0. Ex.: 1,5kg = 0150{" "}
       </p>
       {codigo && peso ? (
+        <div>
         <QRCodeSVG
           className="w-full size-44 mt-4"
           value={`20${codigo}000000000${peso}`}
         />
+        <p className="mt-2">{`20${codigo}000000000${peso}`}</p>
+</div>
       ) : (
         <p className="mt-4">Por favor, insira o código e o peso.</p>
       )}

@@ -39,7 +39,7 @@ export default function GeradorZPL() {
 ^A0,40,40
 ^FO30,340^FD${data} ^FS
 ^A0,80,80
-^FO670,500^FD${i}/${quantidade} ^FS
+^FO610,500^FD${i}/${quantidade} ^FS
 ${blocoEntrega}
 
 ^XZ

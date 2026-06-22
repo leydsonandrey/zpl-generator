@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Zpl from "./tabs/Zpl";
 import Peso from "./tabs/Peso";
+import Nota from "./tabs/Nota";
 
 function Button({ active, onClick, children }) {
   return (
@@ -19,15 +20,19 @@ export default function Home() {
     <div className="w-full">
       <div className="w-full h-14 flex justify-center items-center gap-2 bg-blue-500 shadow-lg">
         <Button active={tab === "zpl"} onClick={() => setTab("zpl")}>
-          Gerador ZPL
+          Gerador de ZPL
         </Button>
         <Button active={tab === "peso"} onClick={() => setTab("peso")}>
-          Gerador Peso
+          Gerador de Peso
+        </Button>
+        <Button active={tab === "nota"} onClick={() => setTab("nota")}>
+          Gerador de Nota
         </Button>
       </div>
       <div>
         {tab === "zpl" && <Zpl />}
         {tab === "peso" && <Peso />}
+        {tab === "nota" && <Nota />}
       </div>
     </div>
   );

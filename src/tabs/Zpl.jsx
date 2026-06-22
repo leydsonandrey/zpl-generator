@@ -10,6 +10,16 @@ export default function GeradorZPL() {
   const [numeroIfood, setNumeroIfood] = useState("");
   const [resultado, setResultado] = useState("");
 
+  // remove acentos + caracteres perigosos do ZPL
+  const limparTexto = (texto) => {
+    return (texto || "")
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "") // remove acentos
+      .replace(/\^/g, "") // evita quebrar ZPL
+      .replace(/~/g, "")
+      .trim();
+  };
+
   const gerarEAbrir = () => {
     if (quantidade <= 0) return;
 
@@ -19,11 +29,13 @@ export default function GeradorZPL() {
       let blocoEntrega = "";
 
       if (tipoEntrega === "ifood" && numeroIfood.trim() !== "") {
-        blocoEntrega = `\n^A0,80,80\n^FO30,500^FD${numeroIfood} ^FS`;
+        blocoEntrega = `\n^A0,80,80\n^FO30,500^FD${limparTexto(numeroIfood)} ^FS`;
       }
+
       if (tipoEntrega === "click") {
         blocoEntrega = `\n^A0,80,80\n^FO30,500^FDCLICK E RETIRE ^FS`;
       }
+
       if (tipoEntrega === "delivery") {
         blocoEntrega = `\n^A0,80,80\n^FO30,500^FDDELIVERY ^FS`;
       }
@@ -33,11 +45,10 @@ export default function GeradorZPL() {
 
 ^CF0,60
 ^A0,80,80
-^FO30,30^FD${pedido} ^FS
-^FO150,110
-^FO30,275^FD${nome} ^FS
+^FO30,30^FD${limparTexto(pedido)} ^FS
+^FO30,275^FD${limparTexto(nome)} ^FS
 ^A0,40,40
-^FO30,340^FD${data} ^FS
+^FO30,340^FD${limparTexto(data)} ^FS
 ^A0,80,80
 ^FO610,500^FD${i}/${quantidade} ^FS
 ${blocoEntrega}
@@ -72,7 +83,7 @@ ${blocoEntrega}
       <input
         className="w-full border rounded-lg p-2 mb-4"
         value={pedido}
-        maxLength={26}
+        maxLength={99}
         onChange={(e) => setPedido(e.target.value)}
       />
 
@@ -80,7 +91,7 @@ ${blocoEntrega}
       <input
         className="w-full border rounded-lg p-2 mb-4"
         value={nome}
-        maxLength={26}
+        maxLength={99}
         onChange={(e) => setNome(e.target.value)}
       />
 
@@ -88,23 +99,25 @@ ${blocoEntrega}
       <input
         className="w-full border rounded-lg p-2 mb-4"
         value={data}
-        maxLength={26}
+        maxLength={99}
         onChange={(e) => setData(e.target.value)}
       />
 
       <div className="flex flex-row justify-baseline gap-4">
         <div className="w-full">
-          <label className="font-semibold">&#8470; de etiquetas:</label>
+          <label className="font-semibold">Nº de etiquetas:</label>
           <input
             type="number"
             min={1}
             max={99}
-            maxLength={3}
             className="w-full border rounded-lg p-2 mb-4"
             value={quantidade}
-            onChange={(e) => setQuantidade(parseInt(e.target.value))}
+            onChange={(e) =>
+              setQuantidade(parseInt(e.target.value) || 1)
+            }
           />
         </div>
+
         <div className="w-full">
           <label className="font-semibold">Tipo de entrega:</label>
           <select
@@ -139,6 +152,7 @@ ${blocoEntrega}
       </button>
 
       <h3 className="font-bold text-lg mb-2">Resultado:</h3>
+
       <textarea
         readOnly
         className="w-full h-64 border rounded-lg p-3 font-mono"

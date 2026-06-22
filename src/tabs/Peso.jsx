@@ -31,7 +31,7 @@ export default function Peso() {
       </div>
       <p>Obs. 1: O peso precisa conter 4 dígitos. Ex.: 1,3kg = 1300</p>
       <p>
-        Obs. 2: Peso abaixo de 1kg precisa começar com 0. Ex.: 1,5kg = 0150{" "}
+        Obs. 2: Peso abaixo de 1kg precisa começar com 0. Ex.: 150 gramas = 0150{" "}
       </p>
       {codigo && peso ? (
         <div>
